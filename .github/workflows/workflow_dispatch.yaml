@@ -28,5 +28,5 @@ jobs:
       echo github action
   - name: echo inputs
     run: |
-      echo ${{ inpouts.name }}
+      echo ${{ inputs.name }}
       echo ${{ inputs.envirionment }}
