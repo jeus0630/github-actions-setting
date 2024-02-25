@@ -38,6 +38,6 @@ jobs:
           aws-region: ${{ vars.AWS_REGION }}
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
       - name: Deploy S3
-        run: aws s3 sync ./build s3:${{ vars.S3_BUCKET }}
+        run: aws s3 sync ./my-app/build s3:${{ vars.S3_BUCKET }}
       - name: CloudFront Invalidation
         run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUD_FRONT_ID }} --paths /*
