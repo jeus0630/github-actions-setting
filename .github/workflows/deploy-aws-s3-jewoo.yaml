@@ -24,7 +24,9 @@ jobs:
           cd my-app
           npm ci
       - name: Build
-        run: npm run build
+        run: |
+          pwd
+          npm run build
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
         with:
