@@ -43,4 +43,4 @@ jobs:
           cd my-app
           aws s3 sync ./build s3://${{ vars.S3_BUCKET }}
       - name: CloudFront Invalidation
-        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUD_FRONT_ID }} --paths /*
+        run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUD_FRONT_ID }} --paths "/*"
