@@ -39,8 +39,7 @@ jobs:
           role-to-assume: ${{ secrets.AWS_ROLE_TO_ASSUME }}
       - name: Deploy S3
         run: |
-          pwd
-          ls
-          aws s3 sync ./my-app/build s3:${{ vars.S3_BUCKET }}
+          cd my-app
+          aws s3 sync ./build ${{ vars.S3_BUCKET }}
       - name: CloudFront Invalidation
         run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUD_FRONT_ID }} --paths /*
