@@ -30,7 +30,7 @@ jobs:
     - name: Install Dependencies
       run: |
         cd my-app
-        npm i
+        npm ci
     - name: Test App
       run: |
         cd my-app
@@ -86,12 +86,15 @@ jobs:
           restore-keys: ${{ runner.os }}-node-
       - name: Install Dependencies
         run: |
-          npm i
+          cd my-app
+          npm ci
       - name: Test App
         run: |
+          cd my-app
           npm run test
       - name: Build
         run: |
+          cd my-app
           npm run build
       - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v4
