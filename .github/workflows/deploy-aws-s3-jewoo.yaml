@@ -104,3 +104,24 @@ jobs:
           aws s3 sync ./build s3://${{ vars.S3_BUCKET }}
       - name: CloudFront Invalidation
         run: aws cloudfront create-invalidation --distribution-id ${{ secrets.CLOUD_FRONT_ID }} --paths "/*"
+
+  create-pr:
+      if: needs.set-environment.outputs.environment == 'dev'
+      runs-on: ubuntu-latest
+      needs:
+      - set-environment,
+      - deploy
+      steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Github Auth Login
+        run: |
+          echo ${{ secrets.PERSONAL_ACCESS_TOKEN }} | gh auth login --with-token
+      - name: Create Branch
+        run: |
+          git switch -c release/${{ github.run_id }}
+          git push origin release/${{ github.run_id }}
+      - name: Create PR
+        run: |
+          echo ${{ github.event.pull_request.url }}
+          gh pr create --base main --head release/${{ github.run_id }} --title "release/${{ github.run_id }} -> master" --body "release pr"
