@@ -126,6 +126,5 @@ jobs:
           git push origin release/${{ github.run_id }}
       - name: Create PR
         run: |
-          echo ${{ github.event.pull_request.number }}
-          echo ${{ github.event.pull_request.html_url }}
-          gh pr create --base main --head release/${{ github.run_id }} --title "release/${{ github.run_id }} -> master" --body "release pr"
+          gh pr create --base main --head release/${{ github.run_id }} --title "release/${{ github.event.pull_request.number }} -> main" --body "Release PR from ${{ github.event.pull_request.html_url }}"
+          
